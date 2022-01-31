@@ -155,11 +155,15 @@ continent.
 ``` r
 ggplot(filter (plastic_waste, plastic_waste_per_cap < 3), 
        aes(x = coastal_pop/total_pop,
-                     y = plastic_waste_per_cap,
-                     color = continent)) +
-  geom_point() +
+           y = plastic_waste_per_cap)) +
+  geom_point(aes(color = continent)) +
+  geom_smooth(color = "#000000") +
   labs(x = "Coastal Population Proportion", y = "Plastic Waste Per Capita", title = "Plastic Waste Per Capita vs. Coastal Population Proportion", subtitle = "By Continent")
 ```
+
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+
+    ## Warning: Removed 10 rows containing non-finite values (stat_smooth).
 
     ## Warning: Removed 10 rows containing missing values (geom_point).
 
