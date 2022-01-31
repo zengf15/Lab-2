@@ -1,7 +1,7 @@
 ---
 title: "Lab 02 - Plastic waste"
-author: "Insert your name here"
-date: "Insert date here"
+author: "Fanyi Zeng"
+date: "1/30/22"
 output: github_document
 ---
 
@@ -18,65 +18,97 @@ plastic_waste <- read.csv("data/plastic-waste.csv")
 ## Exercises
 
 ### Exercise 1
-
-Remove this text, and add your answer for Exercise 1 here.
+Plot, using histograms, the distribution of plastic waste per capita faceted by continent. It seems that North America has a really high outlier. 
 
 ```{r plastic-waste-continent}
-# insert code here
+ggplot(data = plastic_waste, aes(x = plastic_waste_per_cap)) +
+  geom_histogram(binwidth = 0.2) +
+  facet_wrap(~continent)
 ```
 
 ### Exercise 2
+Another way of visualizing numerical data is using density plots. And compare distributions across continents by coloring density curves by continent. The resulting plot may be a little difficult to read, so let’s also fill the curves in with colors as well.
 
 ```{r plastic-waste-density}
-# insert code here
+ggplot(data = plastic_waste, 
+       mapping = aes(x = plastic_waste_per_cap, 
+                     color = continent, 
+                     fill = continent)) +
+  geom_density(alpha = 0.5)
 ```
 
 ### Exercise 3
 
-Remove this text, and add your answer for Exercise 3 here.
+And yet another way to visualize this relationship is using side-by-side box plots.
+
+```{r plastic-waste-box-plot}
+ggplot(data = plastic_waste, 
+       mapping = aes(x = continent, 
+                     y = plastic_waste_per_cap)) +
+  geom_boxplot()
+```
 
 ### Exercise 4
+Convert your side-by-side box plots from the previous task to violin plots. To compare, the violin plot shows the shape of the distribution, whereas the box plot shows more discreet points. 
 
-Remove this text, and add your answer for Exercise 4 here.
-
-```{r plastic-waste-violin}
-# insert code here
+```{r plastic-waste-violin-plot}
+ggplot(data = plastic_waste, 
+       mapping = aes(x = continent, 
+                     y = plastic_waste_per_cap)) +
+  geom_violin()
 ```
 
 ### Exercise 5
 
-Remove this text, and add your answer for Exercise 5 here.
+Visualize the relationship between plastic waste per capita and mismanaged plastic waste per capita using a scatterplot. The relationship is positive.
 
-```{r plastic-waste-mismanaged}
-# insert code here
+```{r plastic-waste-scatter-plot}
+ggplot(data = plastic_waste, 
+       mapping = aes(x = plastic_waste_per_cap, 
+                     y = mismanaged_plastic_waste_per_cap)) +
+  geom_point()
 ```
 
 ### Exercise 6
 
-Remove this text, and add your answer for Exercise 6 here.
+Color the points in the scatterplot by continent. The associations are stronger for Asia, Oceania, and Africa, and are weaker for Europe, North America, and South America.
 
 ```{r plastic-waste-mismanaged-continent}
-# insert code here
+ggplot(data = plastic_waste, 
+       mapping = aes(x = plastic_waste_per_cap, 
+                     y = mismanaged_plastic_waste_per_cap,
+                     color = continent)) +
+  geom_point()
 ```
 
 ### Exercise 7
-
-Remove this text, and add your answer for Exercise 7 here.
+Visualize the relationship between plastic waste per capita and total population as well as plastic waste per capita and coastal population. You will need to make two separate plots. The second association seems stronger.
 
 ```{r plastic-waste-population-total}
-# insert code here
+ggplot(data = plastic_waste, 
+       mapping = aes(x = plastic_waste_per_cap, 
+                     y = total_pop)) +
+  geom_point()
 ```
 
 ```{r plastic-waste-population-coastal}
-# insert code here
+ggplot(data = plastic_waste, 
+       mapping = aes(x = plastic_waste_per_cap, 
+                     y = coastal_pop)) +
+  geom_point()
 ```
 
 ### Exercise 8
 
-Remove this text, and add your answer for Exercise 8 here.
+Plastic waster per capita vs. coastal population proportion by continent.
 
 ```{r recreate-viz}
-# insert code here
+ggplot(filter (plastic_waste, plastic_waste_per_cap < 3), 
+       aes(x = coastal_pop/total_pop,
+                     y = plastic_waste_per_cap,
+                     color = continent)) +
+  geom_point() +
+  labs(x = "Coastal Population Proportion", y = "Plastic Waste Per Capita", title = "Plastic Waste Per Capita vs. Coastal Population Proportion", subtitle = "By Continent")
 ```
 
 ## Pro-Tips
